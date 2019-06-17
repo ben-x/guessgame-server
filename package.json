@@ -1,0 +1,45 @@
+{
+  "name": "express-bootstrap",
+  "version": "1.0.0",
+  "description": "A bootstrap for express project. A guide on how to structure an express project for maximum efficiency",
+  "main": "index.js",
+  "scripts": {
+    "start": "",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ben-x/express-bootstrap.git"
+  },
+  "keywords": [
+    "express",
+    "bootstrap",
+    "nodejs",
+    "structure"
+  ],
+  "author": "benx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ben-x/express-bootstrap/issues"
+  },
+  "homepage": "https://github.com/ben-x/express-bootstrap#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongodb-session": "^2.2.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "winston": "^3.2.1",
+    "winston-mongodb": "^5.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^5.16.0",
+    "eslint-config-google": "^0.13.0",
+    "mocha": "^6.1.4",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
+    "serve-favicon": "^2.5.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "google"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "process": true,
+    "logger": true
+  },
+  "parser": "",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": [],
+  "rules": {
+    "require-jsdoc": 1,
+    "comma-dangle": "off",
+    "indent": ["error", 4],
+    "max-lines": ["error", 300],
+    "max-len": ["error", 100],
+    "no-trailing-spaces": "off"
+  }
+}
