@@ -4,7 +4,6 @@ import {join} from 'path';
 import createError from 'http-errors';
 import express from 'express';
 import {json, urlencoded} from 'body-parser';
-import {ResourceNotFoundException} from './exceptions';
 import morgan from 'morgan';
 import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
@@ -15,6 +14,7 @@ import helmet from 'helmet';
 import connectMongoSession from 'connect-mongodb-session';
 import routes from './routes';
 import sessionConfig from './configs/session';
+import appConfig from './configs/app';
 
 /**
  * @desc factory for generating an express app
@@ -32,7 +32,8 @@ class App {
             secret: sessionConfig.secret,
             enableHTTPS: sessionConfig.enableHTTPS,
             domain: sessionConfig.domain,
-            duration: sessionConfig.domain
+            duration: sessionConfig.domain,
+            isProduction: appConfig.env === 'production'
         });
         this.mountErrorHandlers();
     }
@@ -83,18 +84,12 @@ class App {
      * @param {boolean} arg.enableHTTPS defaults to true
      * @param {string} arg.domain the domain of the app where this session should be active
      * @param {BigInteger} arg.duration the duration in milliseconds of the age of the session
+     * @param {boolean} arg.isProduction signifies if we are in production environment
      * @return {void}
      * @api private
      */
     mountSession(arg) {
-        // const Store = connectMongoSession(session);
-
-        // const sessionStore = new Store({
-        //     uri: arg.mongodbURI,
-        //     collection: arg.collectionName
-        // });
-
-        this.express.use(session({
+        const sessionConf = {
             secret: arg.secret,
             cookie: {
                 maxAge: arg.duration,
@@ -102,11 +97,20 @@ class App {
                 domain: arg.domain,
                 httpOnly: false
             },
-            // store: sessionStore,
             resave: true,
             saveUninitialized: true,
             unset: 'destroy'
-        }));
+        };
+
+        if (arg.isProduction) {
+            const Store = connectMongoSession(session);
+            sessionConf.store = new Store({
+                uri: arg.mongodbURI,
+                collection: arg.collectionName
+            });
+        }
+
+        this.express.use(session(sessionConf));
     }
 }
 
