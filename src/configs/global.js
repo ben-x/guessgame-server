@@ -1,11 +1,12 @@
-const config = require('dotenv');
+const dotenv = require('dotenv');
 const bluebird = require('bluebird');
 const mongoose = require('mongoose');
-const Logger = require('../utils/logger');
+import Logger from '../utils/logger';
+// const Logger = require('../utils/logger');
 
 // load environment variables from .env file into the app and make it globally available as an
 // extension of process.env
-config();
+dotenv.config({});
 
 // override es6 default promise with bluebird promise
 global.Promise = bluebird;

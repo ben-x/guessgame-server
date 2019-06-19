@@ -1,14 +1,15 @@
 'use strict';
 
 import {join} from 'path';
-import * as express from 'express';
+import createError from 'http-errors';
+import express from 'express';
 import {json, urlencoded} from 'body-parser';
 import {ResourceNotFoundException} from './exceptions';
-import * as morgan from 'morgan';
-import * as favicon from 'serve-favicon';
-import * as cookieParser from 'cookie-parser';
-import * as session from 'express-session';
-import * as connectMongoSession from 'connect-mongodb-session';
+import morgan from 'morgan';
+import favicon from 'serve-favicon';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import connectMongoSession from 'connect-mongodb-session';
 import routes from './routes';
 import sessionConfig from './configs/session';
 
@@ -39,13 +40,12 @@ class App {
      * @return {void}
      */
     configureApp() {
-        this.express.use(favicon(join(__dirname, '../public', 'favicon.png')));
+        this.express.use(favicon(join(__dirname, '../public', 'favicon.ico')));
         this.express.use(morgan('dev'));
         this.express.use(json());
         this.express.use(urlencoded({extended: true}));
         this.express.use(cookieParser());
         this.express.use(express.static(join(__dirname, '../', 'public')));
-        // this.express.set('Model', db);
         this.express.use('/', routes);
     }
 
@@ -57,11 +57,11 @@ class App {
     mountErrorHandlers() {
         // catch 404 and forward to error handler
         this.express.use((req, res, next) => {
-            next(new ResourceNotFoundException());
+            next(createError(404));
         });
 
         // // error handler
-        this.express.use((err, req, res) => {
+        this.express.use((err, req, res, next) => {
             res.status(err.status || 500).json(err.message);
         });
     }
@@ -81,12 +81,12 @@ class App {
      * @api private
      */
     mountSession(arg) {
-        const Store = connectMongoSession(session);
+        // const Store = connectMongoSession(session);
 
-        const sessionStore = new Store({
-            uri: arg.mongodbURI,
-            collection: arg.collectionName
-        });
+        // const sessionStore = new Store({
+        //     uri: arg.mongodbURI,
+        //     collection: arg.collectionName
+        // });
 
         this.express.use(session({
             secret: arg.secret,
@@ -96,7 +96,7 @@ class App {
                 domain: arg.domain,
                 httpOnly: false
             },
-            store: sessionStore,
+            // store: sessionStore,
             resave: true,
             saveUninitialized: true,
             unset: 'destroy'

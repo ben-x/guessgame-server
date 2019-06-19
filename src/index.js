@@ -1,10 +1,11 @@
 'use strict';
 
-import './configs/globals';
+import './configs/global';
+import appConfig from './configs/app';
 import * as http from 'http';
 import app from './app';
 
-const port = parseInt(process.env.PORT);
+const port = parseInt(appConfig.port);
 const server = http.createServer(app);
 
 server.listen(port);
