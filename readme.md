@@ -39,8 +39,11 @@ To start this app, perform the following step in order
 
 ### And coding style guide
 For easy references and development, please adhere to the style guide defined in the eslint config
-anf editor config
+and editor config
 
+```
+Please make sure to configure your editor to follow eslint specified in this project
+```
 ```
 Refer to google style guide for further clarification
 ```
