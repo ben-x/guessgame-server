@@ -9,6 +9,9 @@ import morgan from 'morgan';
 import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import compression from 'compression';
+import cors  from 'cors';
+import helmet from 'helmet';
 import connectMongoSession from 'connect-mongodb-session';
 import routes from './routes';
 import sessionConfig from './configs/session';
@@ -46,6 +49,9 @@ class App {
         this.express.use(urlencoded({extended: true}));
         this.express.use(cookieParser());
         this.express.use(express.static(join(__dirname, '../', 'public')));
+        this.express.use(compression());
+        this.express.use(cors());
+        this.express.use(helmet());
         this.express.use('/', routes);
     }
 
