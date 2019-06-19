@@ -11,8 +11,8 @@ chai.use(chaiHttp);
 chai.use(chaiAsPromised);
 const request = chai.request(app).keepOpen();
 
-global.describe('When index route is requested', function() {
-    global.it('It should return status 200 and app description', function(done) {
+describe('When index route is requested', function() {
+    it('It should return status 200 and app description', function(done) {
         request.get('/').set('content-type', 'application/json').then((res) => {
             expect(res).to.have.status(200);
             expect(res.body).to.equal(appConfig.name);
