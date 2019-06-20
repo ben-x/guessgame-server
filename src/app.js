@@ -9,7 +9,7 @@ import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import compression from 'compression';
-import cors  from 'cors';
+import cors from 'cors';
 import helmet from 'helmet';
 import connectMongoSession from 'connect-mongodb-session';
 import routes from './routes';
@@ -19,7 +19,7 @@ import appConfig from './configs/app';
 /**
  * @desc factory for generating an express app
  */
-class App {
+export class App {
     /**
      *
      */

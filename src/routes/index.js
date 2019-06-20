@@ -1,13 +1,9 @@
 'use strict';
 
 import * as express from 'express';
-import {HTTP_OK} from '../utils/http-status-code';
-import appConfig from '../configs/app';
+import {indexCtrl} from '../controllers';
 
 const router = new express.Router();
-
-router.get('/', (req, res) => {
-    res.status(HTTP_OK).send(`<h1>${appConfig.name}</h1>`);
-});
+router.get('/', indexCtrl);
 
 export default router;
