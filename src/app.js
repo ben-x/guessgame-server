@@ -52,7 +52,7 @@ export class App {
         this.express.use(express.static(join(__dirname, '../', 'public')));
         this.express.use(compression());
         this.express.use(cors({
-            origin: ['http://localhost:8080'],
+            origin: [sessionConfig.domain],
             methods: 'GET,PUT,POST,DELETE',
             allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
             credentials: true,
