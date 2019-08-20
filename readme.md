@@ -1,6 +1,6 @@
-# Express Bootstrap
+# GuessGame
 
-A bootstrap for general best practise and structure of express application for maximum efficiency
+A game of 20 words
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ The following are required installed and set up before starting this app
 Git 
 ```
 ```
-Nodejs v8
+Nodejs >= v8
 ```
 ```
 Mongodb

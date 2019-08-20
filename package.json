@@ -1,7 +1,7 @@
 {
-  "name": "express-bootstrap",
+  "name": "guessgame",
   "version": "1.0.0",
-  "description": "A bootstrap for express project. A guide on how to structure an express project for maximum efficiency",
+  "description": "A 20 Word game for guessing",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ben-x/express-bootstrap.git"
+    "url": "git+https://github.com/ben-x/guessgame-server.git"
   },
   "keywords": [
     "express",
@@ -21,9 +21,9 @@
   "author": "benx",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ben-x/express-bootstrap/issues"
+    "url": "https://github.com/ben-x/guessgame-server/issues"
   },
-  "homepage": "https://github.com/ben-x/express-bootstrap#readme",
+  "homepage": "https://github.com/ben-x/guessgame-server#readme",
   "dependencies": {
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
