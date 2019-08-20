@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
     "test": "npm test",
-    "build": "babel src --out-dir dest/ --source-maps --watch"
+    "build": "babel src --out-dir dest/ --source-maps"
   },
   "repository": {
     "type": "git",
