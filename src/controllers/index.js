@@ -11,6 +11,7 @@ import {formatResponse} from '../utils/formatter';
  * @return {void}
  */
 export function indexCtrl(req, res) {
+    logger.log('session', req.session.id);
     res.status(HTTP_OK).send(`<h1>${appConfig.name}</h1>`);
 }
 

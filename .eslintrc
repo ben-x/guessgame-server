@@ -8,7 +8,8 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
     "process": true,
-    "logger": true
+    "logger": true,
+    "GUESS_APP_SOCK": true
   },
   "parser": "",
   "parserOptions": {

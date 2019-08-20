@@ -23,3 +23,5 @@ global.logger = new Logger({
         filename: '../app.log'
     }
 });
+
+global.GUESS_APP_SOCK = null;

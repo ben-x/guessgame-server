@@ -26,15 +26,6 @@ export class App {
     constructor() {
         this.express = express();
         this.configureApp();
-        this.mountSession({
-            mongodbURI: sessionConfig.storage.mongo.uri,
-            collectionName: sessionConfig.storage.mongo.collection,
-            secret: sessionConfig.secret,
-            enableHTTPS: sessionConfig.enableHTTPS,
-            domain: sessionConfig.domain,
-            duration: sessionConfig.domain,
-            isProduction: appConfig.env === 'production'
-        });
         this.mountErrorHandlers();
     }
 
@@ -48,10 +39,25 @@ export class App {
         this.express.use(morgan('dev'));
         this.express.use(json());
         this.express.use(urlencoded({extended: true}));
-        this.express.use(cookieParser());
+        // this.express.use(cookieParser());
+        this.mountSession({
+            mongodbURI: sessionConfig.storage.mongo.uri,
+            collectionName: sessionConfig.storage.mongo.collection,
+            secret: sessionConfig.secret,
+            enableHTTPS: sessionConfig.enableHTTPS,
+            domain: sessionConfig.domain,
+            duration: sessionConfig.duration,
+            isProduction: appConfig.env === 'production'
+        });
         this.express.use(express.static(join(__dirname, '../', 'public')));
         this.express.use(compression());
-        this.express.use(cors());
+        this.express.use(cors({
+            origin: ['http://localhost:8080'],
+            methods: 'GET,PUT,POST,DELETE',
+            allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
+            credentials: true,
+            optionsSuccessStatus: 204,
+        }));
         this.express.use(helmet());
         this.express.use('/', routes);
     }
@@ -95,20 +101,21 @@ export class App {
                 maxAge: arg.duration,
                 secure: arg.enableHTTPS,
                 domain: arg.domain,
-                httpOnly: false
+                httpOnly: false,
+                // sameSite: false
             },
             resave: true,
             saveUninitialized: true,
             unset: 'destroy'
         };
 
-        if (arg.isProduction) {
-            const Store = connectMongoSession(session);
-            sessionConf.store = new Store({
-                uri: arg.mongodbURI,
-                collection: arg.collectionName
-            });
-        }
+        // if (arg.isProduction) {
+        const Store = connectMongoSession(session);
+        sessionConf.store = new Store({
+            uri: arg.mongodbURI,
+            collection: arg.collectionName
+        });
+        // }
 
         this.express.use(session(sessionConf));
     }
