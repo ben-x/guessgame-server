@@ -6,7 +6,6 @@ import express from 'express';
 import {json, urlencoded} from 'body-parser';
 import morgan from 'morgan';
 import favicon from 'serve-favicon';
-import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import compression from 'compression';
 import cors from 'cors';
@@ -39,7 +38,6 @@ export class App {
         this.express.use(morgan('dev'));
         this.express.use(json());
         this.express.use(urlencoded({extended: true}));
-        // this.express.use(cookieParser());
         this.mountSession({
             mongodbURI: sessionConfig.storage.mongo.uri,
             collectionName: sessionConfig.storage.mongo.collection,
@@ -58,11 +56,7 @@ export class App {
             credentials: true,
             optionsSuccessStatus: 204,
         }));
-        // this.express.use(helmet());
-        this.express.use((req, res, next) => {
-            logger.log('SESSION', req.session.id);
-            next();
-        });
+        this.express.use(helmet());
         this.express.use('/', routes);
     }
 
