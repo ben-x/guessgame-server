@@ -33,7 +33,7 @@ export function newMessageHandler(data, socket, io) {
         meta,
     }).then((newMessage) => {
         // notify everyone of a new message
-        io.emit('new-message-logged', newMessage.chat);
+        io.emit('new-message-logged', {chat: newMessage.chat});
 
         // process question if current message is a question to a game
         if (newMessage.meta) {
