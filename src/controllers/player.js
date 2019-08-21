@@ -197,6 +197,8 @@ export function startChatCtrl(req, res) {
             {$push: {chats: newChat._id.toString()}}
         );
     }).then((update) => {
+        // update player chat in session
+        req.session.player.chats.push(chat._id);
         res.status(HTTP_CREATED).json(formatResponse(1, 'ok', chat));
     }).catch((error) => {
         logger.log('error', error);
