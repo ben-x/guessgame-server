@@ -47,7 +47,6 @@ export function signInCtrl(req, res) {
 
         return res.status(HTTP_OK).json(formatResponse(1, 'ok', player));
     }).catch((error) => {
-        logger.log(error);
         res.status(HTTP_SERVER_ERROR)
             .json(formatResponse(ExceptionCode, 'An error occurred during sign in'));
     });

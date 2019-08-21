@@ -52,13 +52,17 @@ export class App {
         this.express.use(express.static(join(__dirname, '../', 'public')));
         this.express.use(compression());
         this.express.use(cors({
-            origin: [sessionConfig.domain],
+            origin: [sessionConfig.origin],
             methods: 'GET,PUT,POST,DELETE',
             allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
             credentials: true,
             optionsSuccessStatus: 204,
         }));
-        this.express.use(helmet());
+        // this.express.use(helmet());
+        this.express.use((req, res, next) => {
+            logger.log('SESSION', req.session.id);
+            next();
+        });
         this.express.use('/', routes);
     }
 
